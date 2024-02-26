@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Search</title>
+</head>
+<body>
+    <h1>Search all SSHOMP vocabs</h1>
+    <form method="post" action="/">
+        <label for="keyword">Enter Keyword:</label>
+        <input type="text" id="keyword" name="keyword" required>
+    </form>
+
+    <button id="startSearch">Start Search</button>
+
+    <!-- Display the JSON response here -->
+    <div id="result">
+        <pre>{{ filtered_concepts | tojson(indent=2) }}</pre>
+    </div>
+
+    <script>
+        document.getElementById('startSearch').addEventListener('click', function() {
+            // Trigger the form submission when the button is clicked
+            document.querySelector('form').submit();
+        });
+    </script>
+</body>
+</html>
+
