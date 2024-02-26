@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keyword Search</title>
     <style>
-        #result {
+        .concept-box {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
             white-space: pre-wrap;
         }
     </style>
@@ -27,8 +30,16 @@
                 const response = await fetch(`https://marketplace-api.sshopencloud.eu/api/concept-search?q=${encodeURIComponent(keyword)}&f=f.candidate%3Dfalse&advanced=true&order=score`);
                 const data = await response.json();
 
-                // Display the JSON response in the 'result' div
-                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                // Render each concept in a separate box
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = ''; // Clear previous content
+
+                data.concepts.forEach(concept => {
+                    const conceptBox = document.createElement('div');
+                    conceptBox.className = 'concept-box';
+                    conceptBox.innerText = JSON.stringify(concept, null, 2);
+                    resultDiv.appendChild(conceptBox);
+                });
             } catch (error) {
                 console.error('Error:', error);
                 // Display an error message in the 'result' div
